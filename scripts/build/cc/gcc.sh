@@ -635,11 +635,18 @@ do_gcc_core_backend() {
     # selection and passing architecture/CPU selectors, as detemined by crosstool-NG, may
     # miscompile or outright fail.
     CT_DoExecLog CFG                                   \
+    AR_FOR_BUILD="${CT_BUILD}-ar"                      \
+    AS_FOR_BUILD="${CT_BUILD}-as"                      \
     CC_FOR_BUILD="${CT_BUILD}-gcc"                     \
+    CXX_FOR_BUILD="${CT_BUILD}-g++"                    \
+    LD_FOR_BUILD="${CT_BUILD}-ld"                      \
+    NM_FOR_BUILD="${CT_BUILD}-nm"                      \
+    RANLIB_FOR_BUILD="${CT_BUILD}-ranlib"              \
     CFLAGS="${cflags}"                                 \
     CFLAGS_FOR_BUILD="${cflags_for_build}"             \
     CXXFLAGS="${cflags} ${cxxflags_for_build}"         \
     CXXFLAGS_FOR_BUILD="${cflags_for_build} ${cxxflags_for_build}" \
+    LDFLAGS_FOR_BUILD="${CT_LDFLAGS_FOR_BUILD}"        \
     LDFLAGS="${core_LDFLAGS[*]}"                       \
     CFLAGS_FOR_TARGET="${cflags_for_target}"           \
     CXXFLAGS_FOR_TARGET="${cxxflags_for_target}"       \
@@ -1266,11 +1273,18 @@ do_gcc_backend() {
     # NB: not using CT_ALL_TARGET_CFLAGS/CT_ALL_TARGET_LDFLAGS here!
     # See do_gcc_core_backend for explanation.
     CT_DoExecLog CFG                                   \
+    AR_FOR_BUILD="${CT_BUILD}-ar"                      \
+    AS_FOR_BUILD="${CT_BUILD}-as"                      \
     CC_FOR_BUILD="${CT_BUILD}-gcc"                     \
+    CXX_FOR_BUILD="${CT_BUILD}-g++"                    \
+    LD_FOR_BUILD="${CT_BUILD}-ld"                      \
+    NM_FOR_BUILD="${CT_BUILD}-nm"                      \
+    RANLIB_FOR_BUILD="${CT_BUILD}-ranlib"              \
     CFLAGS="${cflags}"                                 \
     CFLAGS_FOR_BUILD="${cflags_for_build}"             \
     CXXFLAGS="${cflags} ${cxxflags_for_build}"         \
     CXXFLAGS_FOR_BUILD="${cflags_for_build} ${cxxflags_for_build}" \
+    LDFLAGS_FOR_BUILD="${CT_LDFLAGS_FOR_BUILD}"        \
     LDFLAGS="${final_LDFLAGS[*]}"                      \
     CFLAGS_FOR_TARGET="${cflags_for_target}"           \
     CXXFLAGS_FOR_TARGET="${cxxflags_for_target}"       \

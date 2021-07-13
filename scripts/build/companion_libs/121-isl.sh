@@ -97,6 +97,7 @@ do_isl_backend() {
     CFLAGS="${cflags}"                              \
     CXXFLAGS="${cxxflags}"                          \
     LDFLAGS="${ldflags}"                            \
+    LDFLAGS_FOR_BUILD="${CT_LDFLAGS_FOR_BUILD}"     \
     ${CONFIG_SHELL}                                 \
     "${CT_SRC_DIR}/isl/configure"                   \
         --build=${CT_BUILD}                         \

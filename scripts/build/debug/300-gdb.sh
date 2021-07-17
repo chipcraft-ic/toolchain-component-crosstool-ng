@@ -233,7 +233,12 @@ do_gdb_backend()
     extra_config+=("--without-libexpat-prefix")
 
     if [ "${static}" = "y" ]; then
-        cflags+=" -static"
+        # gdb can have TUI enabled, which uses ncurses
+        # when building for windows, ncurses defines its API with declspecs
+        # which cause linker to mangle symbols in windows-specific way
+        # if NCURSES_STATIC is defined, this doesn't happen
+        # without NDURSES_STATIC, using static build would throw linker errrors
+        cflags+=" -static -DNCURSES_STATIC"
         ldflags+=" -static"
     fi
     if [ "${static_libstdcxx}" = "y" ]; then

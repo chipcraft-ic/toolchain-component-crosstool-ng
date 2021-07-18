@@ -169,7 +169,10 @@ glibc_backend_once()
     # soversions.i, which is only created for builds with shared libs.
     case "${CT_SHARED_LIBS}" in
         y) extra_config+=("--enable-shared");;
-        *) extra_config+=("--disable-shared");;
+        # gibc will not work without shared libraries : (
+        # weak refs in static pthreads_* will cause segfaults in strange places
+        # see gdb for example
+        *) extra_config+=("--enable-static");;
     esac
 
     if [ "${CT_GLIBC_DISABLE_VERSIONING}" = "y" ]; then

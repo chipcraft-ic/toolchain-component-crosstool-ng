@@ -240,6 +240,30 @@ do_gdb_backend()
         # without NDURSES_STATIC, using static build would throw linker errrors
         cflags+=" -static -DNCURSES_STATIC"
         ldflags+=" -static"
+        # needed for static linking, BAD HACK
+        # why this is needed:
+        # - pthread symbols in glibc's static libc.a are weak
+        # - linking with static libstdc++.a doesn't mark some as undefined
+        # - glibc moved stuff from libpthread.a to libc.a
+        # - hack of -Wl,--whole-archive -rt -pthread, -Wl,--no-whole-archive
+        #   stopped working
+        # Hence this hacky workaround.
+        # In the toolchain ChipCraft's building only GDB suffers from this
+        # bug^Wglibc feature.
+        ldflags+=" -u pthread_cond_broadcast"
+        ldflags+=" -u pthread_cond_destroy"
+        ldflags+=" -u pthread_cond_signal"
+        ldflags+=" -u pthread_cond_wait"
+        ldflags+=" -u pthread_create"
+        ldflags+=" -u pthread_detach"
+        ldflags+=" -u pthread_equal"
+        ldflags+=" -u pthread_join"
+        ldflags+=" -u pthread_mutex_lock"
+        ldflags+=" -u pthread_mutex_unlock"
+        ldflags+=" -u pthread_once"
+        ldflags+=" -u pthread_setcancelstate"
+        extra_config+=("--with-static-standard-libraries")
+        extra_config+=("--disable-source-highlight")
     fi
     if [ "${static_libstdcxx}" = "y" ]; then
         ldflags+=" -static-libgcc"

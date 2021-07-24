@@ -64,6 +64,10 @@ do_make_backend()
         extra_config+=( --without-guile )
     fi
 
+    if [ "${CT_STATIC_TOOLCHAIN}" = "y" ]; then
+        ldflags="${ldflags} -static"
+    fi
+
     CT_DoLog EXTRA "Configuring make"
     CT_DoExecLog CFG \
                      CFLAGS="${cflags}" \

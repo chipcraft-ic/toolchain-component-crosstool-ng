@@ -262,6 +262,7 @@ do_gdb_backend()
         ldflags+=" -u pthread_mutex_unlock"
         ldflags+=" -u pthread_once"
         ldflags+=" -u pthread_setcancelstate"
+        ldflags+=" -pthread"
         extra_config+=("--with-static-standard-libraries")
         extra_config+=("--disable-source-highlight")
     fi

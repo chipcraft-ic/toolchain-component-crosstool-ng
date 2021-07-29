@@ -418,8 +418,11 @@ glibc_backend_once()
 
     if [ "${libc_mode}" = "final" ]; then
         CT_DoLog EXTRA "Building C library"
+        # define install_root here, so default GCONV_PATH can be set properly
+        # with ChipCraft'sglibc patch
         CT_DoExecLog ALL make ${CT_JOBSFLAGS}         \
                               "${extra_make_args[@]}" \
+                              install_root="${multi_root}"    \
                               all
 
         CT_DoLog EXTRA "Installing C library"
